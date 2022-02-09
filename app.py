@@ -41,7 +41,15 @@ def get_status():
     try: 
         products = get_data()
     except Exception as ex: 
-        return {'žinutė': 'Klaida jungiantis prie DB', 'klaida': str(ex)} 
+        ex_message = str(ex)
+        
+
+        if "Invalid object name 'Product.Products'" in ex_message:
+            return {'žinutė': 'Blogai nurodytas lentelės pavadinimas'} 
+
+
+
+        return {'žinutė': 'Klaida jungiantis prie DB', 'klaida': ex_message} 
 
     if not products:
         return {'žinutė': 'Trūksta duomenų'} 
